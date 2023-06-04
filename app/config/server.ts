@@ -34,8 +34,12 @@ export const getServerSideConfig = () => {
   }
 
   // 从这里开始
-  const apiKeys = (process.env.OPENAI_API_KEY ?? '').split(',')
-  const apiKey = apiKeys.at(Math.floor(Math.random() * apiKeys.length)) ?? ''
+  //const apiKeys = (process.env.OPENAI_API_KEY ?? '').split(',')
+  //const apiKey = apiKeys.at(Math.floor(Math.random() * apiKeys.length)) ?? ''
+  const apiKeys = process.env.OPENAI_API_KEY || '';
+  const apiKeysList = apiKeys.split(',').filter(key => key !== '');
+  const apiKey = apiKeysList[Math.floor(Math.random() * apiKeysList.length)] || '';
+  console.log(`Selected API key is ${apiKey} with index ${randomIndex}`);
   return {
     //原来的代码apiKey: process.env.OPENAI_API_KEY,
     apiKey,
